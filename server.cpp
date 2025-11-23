@@ -11,6 +11,7 @@ int main() {
     char greeting[] = "server ready.";
 
     server_fd = socket(AF_INET, SOCK_STREAM, 0);
+
     if (server_fd < 0){
         std::cerr << "Error: socket unable to be made\n" << std::endl;
         return -1;
@@ -22,6 +23,11 @@ int main() {
 
     if (bind(server_fd, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0){
         std::cerr << "Error: bind failure.\n" << std::endl;
+        return -1;
+    }
+
+    if (listen(server_fd, 1) < 0){
+        std::cerr << "Error: listening failure." << std::endl;
         return -1;
     }
 
